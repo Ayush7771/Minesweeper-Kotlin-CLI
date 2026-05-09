@@ -26,17 +26,6 @@ fun main() {
     checkCorners(array2d)
 
 
-//    for(i in array2d.indices){
-//        for (j in array2d[i].indices){
-//            when{
-//                i == 0 && j == 0 -> continue
-//                i == 0 && j == 8 -> continue
-//                i == 8 && j == 0 -> continue
-//                i == 8 && j == 8 -> continue
-//            }
-//        }
-//    }
-
     for (i in array2d) {
         println(i.joinToString(""))
     }
@@ -58,7 +47,7 @@ fun checkCorners(array2d: Array<Array<String>>) {
         break
     }
 
-    // First Last Corner of Grid 1
+    // First Last Corner of Grid
     while (array2d.first()[array2d.lastIndex] != "X") {
         if (array2d.first()[array2d.lastIndex - 1] == "X") firstLastCorner++
         if (array2d[1][array2d.lastIndex] == "X") firstLastCorner++
