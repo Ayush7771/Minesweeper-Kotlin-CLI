@@ -26,10 +26,33 @@ fun main() {
 
     checkCorners(array2d)
     checkSides(array2d)
+    checkCenters(array2d)
 
 
     for (i in array2d) {
         println(i.joinToString(""))
+    }
+}
+
+
+fun checkCenters(array2d: Array<Array<String>>) {
+
+    //Center checks of Grid excluding corners and 4 sides
+    for (i in 1..array2d.size - 2) {
+        for (j in 1..array2d[i].size - 2) {
+            var centerX = 0
+            if (array2d[i][j] != "X") {
+                if (array2d[i - 1][j - 1] == "X") centerX++
+                if (array2d[i - 1][j] == "X") centerX++
+                if (array2d[i - 1][j + 1] == "X") centerX++
+                if (array2d[i][j - 1] == "X") centerX++
+                if (array2d[i][j + 1] == "X") centerX++
+                if (array2d[i + 1][j - 1] == "X") centerX++
+                if (array2d[i + 1][j] == "X") centerX++
+                if (array2d[i + 1][j + 1] == "X") centerX++
+                if (centerX > 0) array2d[i][j] = "$centerX"
+            }
+        }
     }
 }
 
@@ -88,8 +111,6 @@ fun checkSides(array2d: Array<Array<String>>) {
         }
     }
 }
-
-
 
 
 fun checkCorners(array2d: Array<Array<String>>) {
