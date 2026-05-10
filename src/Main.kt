@@ -1,3 +1,4 @@
+import kotlin.math.sign
 import kotlin.random.Random
 
 fun main() {
@@ -35,20 +36,60 @@ fun main() {
 
 fun checkSides(array2d: Array<Array<String>>) {
 
-    //Top Sides Check excluding corners
-    for (i in array2d[0].indices) {
-        if (i == 0 || i == array2d[0].size - 1) continue
+    //Top Sides Check of Grid excluding corners
+    for (i in 1..array2d[0].size - 2) {
         var firstRowX = 0
         if (array2d[0][i] != "X") {
             if (array2d[0][i - 1] == "X") firstRowX++
             if (array2d[0][i + 1] == "X") firstRowX++
             if (array2d[1][i - 1] == "X") firstRowX++
             if (array2d[1][i] == "X") firstRowX++
-            if (array2d[0][i + 1] == "X") firstRowX++
+            if (array2d[1][i + 1] == "X") firstRowX++
             if (firstRowX > 0) array2d[0][i] = "$firstRowX"
         }
     }
+
+    //Left Side check of Grid excluding corners
+    for (i in 1..array2d.size - 2) {
+        var leftSideX = 0
+        if (array2d[i][0] != "X") {
+            if (array2d[i - 1][0] == "X") leftSideX++
+            if (array2d[i - 1][1] == "X") leftSideX++
+            if (array2d[i][1] == "X") leftSideX++
+            if (array2d[i + 1][0] == "X") leftSideX++
+            if (array2d[i + 1][1] == "X") leftSideX++
+            if (leftSideX > 0) array2d[i][0] = "$leftSideX"
+        }
+    }
+
+    //Right Side check of Grid excluding corners
+    for (i in 1..array2d.size - 2) {
+        var rightSideX = 0
+        if (array2d[i][array2d.lastIndex] != "X") {
+            if (array2d[i - 1][array2d.lastIndex] == "X") rightSideX++
+            if (array2d[i - 1][array2d.lastIndex - 1] == "X") rightSideX++
+            if (array2d[i][array2d.lastIndex - 1] == "X") rightSideX++
+            if (array2d[i + 1][array2d.lastIndex] == "X") rightSideX++
+            if (array2d[i + 1][array2d.lastIndex - 1] == "X") rightSideX++
+            if (rightSideX > 0) array2d[i][array2d.lastIndex] = "$rightSideX"
+        }
+    }
+
+    //Bottom Side check of Grid excluding corners
+    for (i in 1..array2d.last().size - 2) {
+        var bottomSideX = 0
+        if (array2d[array2d.lastIndex][i] != "X") {
+            if (array2d[array2d.lastIndex][i - 1] == "X") bottomSideX++
+            if (array2d[array2d.lastIndex - 1][i - 1] == "X") bottomSideX++
+            if (array2d[array2d.lastIndex - 1][i] == "X") bottomSideX++
+            if (array2d[array2d.lastIndex - 1][i + 1] == "X") bottomSideX++
+            if (array2d[array2d.lastIndex][i + 1] == "X") bottomSideX++
+            if (bottomSideX > 0) array2d[array2d.lastIndex][i] = "$bottomSideX"
+        }
+    }
 }
+
+
 
 
 fun checkCorners(array2d: Array<Array<String>>) {
