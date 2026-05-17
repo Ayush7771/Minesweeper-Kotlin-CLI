@@ -24,16 +24,50 @@ fun main() {
     }
 
 
+
+
+    printGrids(array2d)
+    while (true) {
+
+        println("Set/delete mine marks (x and y coordinates): ")
+        val x = readln().toInt()
+        val y = readln().toInt()
+        when(array2d[y-1][x-1]){
+            "1","2","3","4","5","6","7","8" -> println("There is a number here!")
+            else -> {
+                array2d[y-1][x-1] = "*"
+                printGrids(array2d)
+            }
+        }
+
+    }
+
+
+
+}
+
+
+fun printGrids(array2d: Array<Array<String>>){
+
     checkCorners(array2d)
     checkSides(array2d)
     checkCenters(array2d)
 
+    println(" │123456789│")
 
-    for (i in array2d) {
-        println(i.joinToString(""))
+    println("—│—————————│")
+
+    for (i in array2d.indices) {
+        print("${i+1}│")
+        for (j in array2d[i].indices) {
+            if (array2d[i][j] == "X") print(".")
+            else print(array2d[i][j])
+        }
+        println("│")
     }
-}
 
+    println("—│—————————│")
+}
 
 fun checkCenters(array2d: Array<Array<String>>) {
 
