@@ -1,3 +1,4 @@
+import java.util.Scanner
 import kotlin.math.sign
 import kotlin.random.Random
 
@@ -11,6 +12,8 @@ fun main() {
 
     val random = Random
 
+    var totalMines = input
+
 
     for (i in 1..input) {
         inner@ while (true) {
@@ -22,36 +25,39 @@ fun main() {
             }
         }
     }
-
-
-
+    val scanner = Scanner(System.`in`)
 
     printGrids(array2d)
+
     while (true) {
 
         println("Set/delete mine marks (x and y coordinates): ")
-        val x = readln().toInt()
-        val y = readln().toInt()
-        when(array2d[y-1][x-1]){
-            "1","2","3","4","5","6","7","8" -> println("There is a number here!")
+        val x = scanner.nextInt()
+        val y = scanner.nextInt()
+        when (array2d[y - 1][x - 1]) {
+            "1", "2", "3", "4", "5", "6", "7", "8" -> println("There is a number here!")
             "*" -> {
-                array2d[y-1][x-1] = "."
+                array2d[y - 1][x - 1] = "."
                 printGrids(array2d)
             }
+
             else -> {
-                array2d[y-1][x-1] = "*"
+                if (array2d[y - 1][x - 1] == "X") totalMines--
+                array2d[y - 1][x - 1] = "*"
                 printGrids(array2d)
             }
         }
+        if (totalMines == 0) break
 
     }
-    //pause here
+
+    println("Congratulations! You found all the mines!")
 
 
 }
 
 
-fun printGrids(array2d: Array<Array<String>>){
+fun printGrids(array2d: Array<Array<String>>) {
 
     checkCorners(array2d)
     checkSides(array2d)
@@ -62,7 +68,7 @@ fun printGrids(array2d: Array<Array<String>>){
     println("—│—————————│")
 
     for (i in array2d.indices) {
-        print("${i+1}│")
+        print("${i + 1}│")
         for (j in array2d[i].indices) {
             if (array2d[i][j] == "X") print(".")
             else print(array2d[i][j])
@@ -176,7 +182,7 @@ fun checkCorners(array2d: Array<Array<String>>) {
     }
 
     // Last First Corner of Grid
-    while (array2d.last()[0] != "X" && array2d.last()[0] != "*" ) {
+    while (array2d.last()[0] != "X" && array2d.last()[0] != "*") {
         if (array2d.last()[1] == "X") lastFirstCorner++
         if (array2d[array2d.size - 2][0] == "X") lastFirstCorner++
         if (array2d[array2d.size - 2][1] == "X") lastFirstCorner++
