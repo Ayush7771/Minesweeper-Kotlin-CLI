@@ -13,6 +13,7 @@ fun main() {
     val random = Random
 
     var totalMines = input
+    var nonMines = 0
 
 
     for (i in 1..input) {
@@ -27,6 +28,10 @@ fun main() {
     }
     val scanner = Scanner(System.`in`)
 
+    checkCorners(array2d)
+    checkSides(array2d)
+    checkCenters(array2d)
+
     printGrids(array2d)
 
     while (true) {
@@ -37,17 +42,19 @@ fun main() {
         when (array2d[y - 1][x - 1]) {
             "1", "2", "3", "4", "5", "6", "7", "8" -> println("There is a number here!")
             "*" -> {
+                nonMines--
                 array2d[y - 1][x - 1] = "."
                 printGrids(array2d)
             }
 
             else -> {
                 if (array2d[y - 1][x - 1] == "X") totalMines--
+                if (array2d[y - 1][x - 1] != "X") nonMines++
                 array2d[y - 1][x - 1] = "*"
                 printGrids(array2d)
             }
         }
-        if (totalMines == 0) break
+        if (totalMines == 0 && nonMines == 0) break
 
     }
 
@@ -59,9 +66,7 @@ fun main() {
 
 fun printGrids(array2d: Array<Array<String>>) {
 
-    checkCorners(array2d)
-    checkSides(array2d)
-    checkCenters(array2d)
+
 
     println(" │123456789│")
 
@@ -78,6 +83,7 @@ fun printGrids(array2d: Array<Array<String>>) {
 
     println("—│—————————│")
 }
+
 
 fun checkCenters(array2d: Array<Array<String>>) {
 
