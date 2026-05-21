@@ -13,6 +13,7 @@ fun main() {
     val random = Random
 
     var totalMines = input
+
     var nonMines = 0
 
 
@@ -84,14 +85,13 @@ fun printGrids(array2d: Array<Array<String>>) {
     println("—│—————————│")
 }
 
-
 fun checkCenters(array2d: Array<Array<String>>) {
 
     //Center checks of Grid excluding corners and 4 sides
     for (i in 1..array2d.size - 2) {
         for (j in 1..array2d[i].size - 2) {
             var centerX = 0
-            if (array2d[i][j] != "X" && array2d[i][j] != "*") {
+            if (array2d[i][j] != "X" ) {
                 if (array2d[i - 1][j - 1] == "X") centerX++
                 if (array2d[i - 1][j] == "X") centerX++
                 if (array2d[i - 1][j + 1] == "X") centerX++
@@ -112,7 +112,7 @@ fun checkSides(array2d: Array<Array<String>>) {
     //Top Sides Check of Grid excluding corners
     for (i in 1..array2d[0].size - 2) {
         var firstRowX = 0
-        if (array2d[0][i] != "X" && array2d[0][i] != "*") {
+        if (array2d[0][i] != "X") {
             if (array2d[0][i - 1] == "X") firstRowX++
             if (array2d[0][i + 1] == "X") firstRowX++
             if (array2d[1][i - 1] == "X") firstRowX++
@@ -125,7 +125,7 @@ fun checkSides(array2d: Array<Array<String>>) {
     //Left Side check of Grid excluding corners
     for (i in 1..array2d.size - 2) {
         var leftSideX = 0
-        if (array2d[i][0] != "X" && array2d[i][0] != "*") {
+        if (array2d[i][0] != "X" ) {
             if (array2d[i - 1][0] == "X") leftSideX++
             if (array2d[i - 1][1] == "X") leftSideX++
             if (array2d[i][1] == "X") leftSideX++
@@ -138,7 +138,7 @@ fun checkSides(array2d: Array<Array<String>>) {
     //Right Side check of Grid excluding corners
     for (i in 1..array2d.size - 2) {
         var rightSideX = 0
-        if (array2d[i][array2d.lastIndex] != "X" && array2d[i][array2d.lastIndex] != "*") {
+        if (array2d[i][array2d.lastIndex] != "X" ) {
             if (array2d[i - 1][array2d.lastIndex] == "X") rightSideX++
             if (array2d[i - 1][array2d.lastIndex - 1] == "X") rightSideX++
             if (array2d[i][array2d.lastIndex - 1] == "X") rightSideX++
@@ -151,7 +151,7 @@ fun checkSides(array2d: Array<Array<String>>) {
     //Bottom Side check of Grid excluding corners
     for (i in 1..array2d.last().size - 2) {
         var bottomSideX = 0
-        if (array2d[array2d.lastIndex][i] != "X" && array2d[array2d.lastIndex][i] != "*") {
+        if (array2d[array2d.lastIndex][i] != "X") {
             if (array2d[array2d.lastIndex][i - 1] == "X") bottomSideX++
             if (array2d[array2d.lastIndex - 1][i - 1] == "X") bottomSideX++
             if (array2d[array2d.lastIndex - 1][i] == "X") bottomSideX++
@@ -170,7 +170,7 @@ fun checkCorners(array2d: Array<Array<String>>) {
     var lastCorner = 0
 
     // First Corner of Grid
-    while (array2d.first()[0] != "X" && array2d.first()[0] != "*") {
+    while (array2d.first()[0] != "X" ) {
         if (array2d.first()[1] == "X") firstCorner++
         if (array2d[1][0] == "X") firstCorner++
         if (array2d[1][1] == "X") firstCorner++
@@ -179,7 +179,7 @@ fun checkCorners(array2d: Array<Array<String>>) {
     }
 
     // First Last Corner of Grid
-    while (array2d.first()[array2d.lastIndex] != "X" && array2d.first()[array2d.lastIndex] != "*") {
+    while (array2d.first()[array2d.lastIndex] != "X" ) {
         if (array2d.first()[array2d.lastIndex - 1] == "X") firstLastCorner++
         if (array2d[1][array2d.lastIndex] == "X") firstLastCorner++
         if (array2d[1][array2d.lastIndex - 1] == "X") firstLastCorner++
@@ -188,7 +188,7 @@ fun checkCorners(array2d: Array<Array<String>>) {
     }
 
     // Last First Corner of Grid
-    while (array2d.last()[0] != "X" && array2d.last()[0] != "*") {
+    while (array2d.last()[0] != "X" ) {
         if (array2d.last()[1] == "X") lastFirstCorner++
         if (array2d[array2d.size - 2][0] == "X") lastFirstCorner++
         if (array2d[array2d.size - 2][1] == "X") lastFirstCorner++
@@ -196,7 +196,7 @@ fun checkCorners(array2d: Array<Array<String>>) {
         break
     }
     // Last Corner of Grid
-    while (array2d.last()[array2d.lastIndex] != "X" && array2d.last()[array2d.lastIndex] != "*") {
+    while (array2d.last()[array2d.lastIndex] != "X" ) {
         if (array2d.last()[array2d.lastIndex - 1] == "X") lastCorner++
         if (array2d[array2d.lastIndex - 1][array2d.lastIndex] == "X") lastCorner++
         if (array2d[array2d.lastIndex - 1][array2d.lastIndex - 1] == "X") lastCorner++
