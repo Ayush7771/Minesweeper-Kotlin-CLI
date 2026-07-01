@@ -1,3 +1,4 @@
+import java.util.Scanner
 import kotlin.random.Random
 
 fun main(){
@@ -8,8 +9,10 @@ fun main(){
         }
     }
 
-    println("How many mines do you want on the field?")
+    print("How many mines do you want on the field? ")
     val inputOfTotalMines = readln().toInt()
+
+    printGrids(grid)
 
     val random = Random
 
@@ -27,8 +30,16 @@ fun main(){
 
     }
 
-    printGrids(grid)
+    val scanner = Scanner(System.`in`)
+
+    while (true){
+        print("Set/unset mine marks or claim a cell as free: ")
+        val x =  scanner.nextInt()
+        val y = scanner.nextInt()
+        val option = scanner.next()
+    }
 }
+
 
 fun printGrids(grid : MutableList<MutableList<String>>){
 
@@ -47,7 +58,7 @@ fun printGrids(grid : MutableList<MutableList<String>>){
     for (i in grid.indices){
         print("${i + 1}│")
         for (j in grid[i].indices){
-            print(if (grid[i][j] == "X") "." else grid[i][j])
+            print(grid[i][j])
         }
         println("│")
     }
