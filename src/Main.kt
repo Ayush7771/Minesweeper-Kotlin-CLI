@@ -1,88 +1,53 @@
-import java.util.Scanner
 import kotlin.random.Random
 
 fun main() {
-
-    val grid = MutableList(9) {
-        MutableList(9) {
-            "."
-        }
-    }
-
     print("How many mines do you want on the field? ")
-    val inputOfTotalMines = readln().toInt()
+    val inputNumberOfMines = readln().toInt()
+    val minesweeper = Minesweeper(inputNumberOfMines)
+    minesweeper.printGrid()
+}
 
-    printGrids(grid)
+class Minesweeper(numberOfMines: Int) {
 
-    val random = Random
+    private val grid = MutableList(9) {
+        MutableList(9) { "." }
+    }
 
-    repeat(inputOfTotalMines) {
+    fun printGrid() {
+        println("\n │123456789│")
 
-        while (true) {
-            val x = random.nextInt(0, grid.size)
-            val y = random.nextInt(0, grid.size)
+        println("—│—————————│")
 
-            if (grid[x][y] != "X") {
-                grid[x][y] = "X"
-                break
+        for (i in grid.indices) {
+            print("${i + 1}│")
+            for (j in grid[i].indices) {
+                print(grid[i][j])
             }
+            println("│")
         }
 
+        println("—│—————————│")
     }
-    checkCorners(grid)
-    checkSides(grid)
-    checkCenters(grid)
 
-    val scanner = Scanner(System.`in`)
-
-    while (true) {
-        print("Set/unset mine marks or claim a cell as free: ")
-        val x = scanner.nextInt()
-        val y = scanner.nextInt()
-        val option = scanner.next()
-        break
+    init {
+        printGrid()
     }
-    printGrids(grid)
-}
 
+    init {
+        val random = Random
 
-fun printGrids(grid: MutableList<MutableList<String>>) {
+        repeat(numberOfMines) {
+            val pickRandomColumn = random.nextInt(0, 9)
+            val pickRandomRow = random.nextInt(0, 9)
 
-    print(" │")
-    for (i in 1..grid.size) {
-        print(i)
-    }
-    println("│")
-
-    print("—│")
-    for (i in 1..grid.size) {
-        print("—")
-    }
-    println("│")
-
-    for (i in grid.indices) {
-        print("${i + 1}│")
-        for (j in grid[i].indices) {
-            print(if (grid[i][j] == "X") "." else grid[i][j])
+            grid[pickRandomRow][pickRandomColumn] = "X"
         }
-        println("│")
+
+        checkCenters(grid)
+        checkCorners(grid)
+        checkSides(grid)
     }
 
-    print("—│")
-    for (i in 1..grid.size) {
-        print("—")
-    }
-    println("│")
-}
-
-fun exposeHints(grid: MutableList<MutableList<String>>, x : Int, y : Int){
-    var X = x
-    var Y = y
-    while (true){
-        for (i in y-1 .. 0){
-
-        }
-    }
 }
 
 fun checkCenters(grid: MutableList<MutableList<String>>) {
@@ -91,7 +56,7 @@ fun checkCenters(grid: MutableList<MutableList<String>>) {
     for (i in 1..grid.size - 2) {
         for (j in 1..grid[i].size - 2) {
             var centerX = 0
-            if (grid[i][j] != "X" ) {
+            if (grid[i][j] != "X") {
                 if (grid[i - 1][j - 1] == "X") centerX++
                 if (grid[i - 1][j] == "X") centerX++
                 if (grid[i - 1][j + 1] == "X") centerX++
@@ -105,6 +70,7 @@ fun checkCenters(grid: MutableList<MutableList<String>>) {
         }
     }
 }
+
 
 fun checkSides(grid: MutableList<MutableList<String>>) {
 
@@ -159,7 +125,6 @@ fun checkSides(grid: MutableList<MutableList<String>>) {
             if (bottomSideX > 0) grid[grid.lastIndex][i] = "$bottomSideX"
         }
     }
-
 }
 
 
@@ -188,7 +153,7 @@ fun checkCorners(grid: MutableList<MutableList<String>>) {
     }
 
     // Last First Corner of Grid
-    while (grid.last()[0] != "X" ) {
+    while (grid.last()[0] != "X") {
         if (grid.last()[1] == "X") lastFirstCorner++
         if (grid[grid.size - 2][0] == "X") lastFirstCorner++
         if (grid[grid.size - 2][1] == "X") lastFirstCorner++
@@ -196,7 +161,7 @@ fun checkCorners(grid: MutableList<MutableList<String>>) {
         break
     }
     // Last Corner of Grid
-    while (grid.last()[grid.lastIndex] != "X" ) {
+    while (grid.last()[grid.lastIndex] != "X") {
         if (grid.last()[grid.lastIndex - 1] == "X") lastCorner++
         if (grid[grid.lastIndex - 1][grid.lastIndex] == "X") lastCorner++
         if (grid[grid.lastIndex - 1][grid.lastIndex - 1] == "X") lastCorner++
